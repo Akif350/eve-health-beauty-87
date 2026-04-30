@@ -149,6 +149,41 @@ function Landing() {
         </div>
       </section>
 
+      {/* TESTIMONIALS */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-24">
+        <div className="text-center mb-12 animate-fade-up">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-soft text-primary text-xs font-semibold mb-4">
+            <Sparkles className="w-3 h-3" /> Loved across MENA
+          </div>
+          <h2 className="font-display font-extrabold text-4xl lg:text-5xl tracking-tight">
+            Real stories from <span className="text-gradient-primary">real patients</span>
+          </h2>
+        </div>
+        <div className="grid md:grid-cols-3 gap-5">
+          {[
+            { name: "Aisha M.", role: "Patient · Riyadh", text: "EVE made finding the right specialist effortless. The bariatric program changed my life.", color: "from-primary-soft to-card" },
+            { name: "Dr. Khaled R.", role: "Endocrinologist", text: "The professional dashboard is intuitive — I can focus on patients, not paperwork.", color: "from-coral-soft to-card" },
+            { name: "Layla S.", role: "Beauty client · Jeddah", text: "Curated brands, fast delivery and AI suggestions that actually work for my skin.", color: "from-mint to-card" },
+          ].map((t, i) => (
+            <div key={t.name} className={`relative p-7 rounded-3xl bg-gradient-to-br ${t.color} border border-border/40 shadow-card hover-lift animate-fade-up`} style={{ animationDelay: `${i * 100}ms` }}>
+              <div className="flex items-center gap-1 text-coral mb-4">
+                {Array.from({ length: 5 }).map((_, j) => <Star key={j} className="w-4 h-4 fill-current" />)}
+              </div>
+              <p className="text-sm leading-relaxed mb-5">"{t.text}"</p>
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-gradient-primary text-primary-foreground grid place-items-center font-bold">
+                  {t.name.charAt(0)}
+                </div>
+                <div>
+                  <div className="font-semibold text-sm">{t.name}</div>
+                  <div className="text-xs text-muted-foreground">{t.role}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* TRUST BAND */}
       <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-24">
         <div className="bg-gradient-primary rounded-[2.5rem] p-10 lg:p-16 text-primary-foreground relative overflow-hidden shadow-elegant">
