@@ -3,7 +3,9 @@ import { Logo } from "@/components/Logo";
 import {
   Search, Bell, ShoppingCart, MapPin, ChevronDown, Star, Plus,
   Stethoscope, Pill, Upload, ArrowRight, Sparkles, ShoppingBag,
-  Briefcase, ChevronLeft, ChevronRight, Heart, Home, BookOpen, User2
+  Briefcase, ChevronLeft, ChevronRight, Heart, Home, BookOpen,
+  Calendar, MessageSquare, Activity, Settings, LogOut, TrendingUp,
+  Users, Award, Zap,
 } from "lucide-react";
 import heroDoctor from "@/assets/hero-doctor.jpg";
 import consultDoctor from "@/assets/consult-doctor.jpg";
@@ -33,56 +35,118 @@ const products = [
 const brands = ["Cetaphil", "Bio Cal-D", "Diataal", "Enterogermina", "La Roche", "Vichy"];
 
 const articles = [
-  { img: article1, title: "Oral Thrush in Babies: Why It Happens and How to Manage It Safely at Home", desc: "A practical guide for new parents on identifying and treating oral thrush early.", tag: "Pediatrics" },
+  { img: article1, title: "Oral Thrush in Babies: Why It Happens and How to Manage It Safely", desc: "A practical guide for new parents on identifying and treating oral thrush early.", tag: "Pediatrics" },
   { img: article2, title: "Bariatric Nutrition: Building the Perfect Plate Post-Surgery", desc: "Expert-approved meal frameworks to support sustainable weight loss.", tag: "Nutrition" },
   { img: article3, title: "Glow From Within: Your 5-Step Evening Skincare Ritual", desc: "Dermatologist-recommended ingredients for radiant skin overnight.", tag: "Beauty" },
 ];
 
+const sidebarItems = [
+  { icon: Home, label: "Dashboard", active: true },
+  { icon: Stethoscope, label: "Consultations" },
+  { icon: ShoppingBag, label: "Marketplace" },
+  { icon: Calendar, label: "Appointments" },
+  { icon: Activity, label: "Health Tracker" },
+  { icon: MessageSquare, label: "Messages", badge: 4 },
+  { icon: BookOpen, label: "Articles" },
+  { icon: Heart, label: "Favorites" },
+];
+
 function Dashboard() {
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <DashHeader />
-
-      <main className="max-w-7xl mx-auto px-6 lg:px-10 space-y-12 mt-8">
-        <HeroBanner />
-        <ServicesGrid />
-        <ConsultationSection />
-        <PrescriptionUpload />
-        <ProductShowcase />
-        <PromoBanner />
-        <BrandsSection />
-        <ArticlesSection />
-      </main>
+    <div className="min-h-screen bg-background flex">
+      <Sidebar />
+      <div className="flex-1 min-w-0 flex flex-col">
+        <DashHeader />
+        <main className="flex-1 px-6 lg:px-10 py-8 space-y-10">
+          <WelcomeStrip />
+          <HeroBanner />
+          <ServicesGrid />
+          <ConsultationSection />
+          <PrescriptionUpload />
+          <ProductShowcase />
+          <PromoBanner />
+          <BrandsSection />
+          <ArticlesSection />
+        </main>
+      </div>
     </div>
+  );
+}
+
+function Sidebar() {
+  return (
+    <aside className="hidden lg:flex flex-col w-64 shrink-0 border-r border-border/60 bg-card/40 backdrop-blur-xl sticky top-0 h-screen">
+      <div className="px-6 h-20 flex items-center border-b border-border/60">
+        <Logo />
+      </div>
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold px-3 mb-2 mt-2">Main</div>
+        {sidebarItems.map((item) => (
+          <button
+            key={item.label}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-smooth group relative ${
+              item.active
+                ? "bg-gradient-primary text-primary-foreground shadow-soft"
+                : "text-muted-foreground hover:bg-primary-soft hover:text-primary"
+            }`}
+          >
+            <item.icon className="w-5 h-5 shrink-0" />
+            <span className="flex-1 text-left">{item.label}</span>
+            {item.badge && (
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${item.active ? "bg-white/20" : "bg-coral text-coral-foreground"}`}>
+                {item.badge}
+              </span>
+            )}
+          </button>
+        ))}
+
+        <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold px-3 mb-2 mt-6">Account</div>
+        <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-primary-soft hover:text-primary transition-smooth">
+          <Settings className="w-5 h-5" /> Settings
+        </button>
+        <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-coral-soft hover:text-coral transition-smooth">
+          <LogOut className="w-5 h-5" /> Sign out
+        </button>
+      </nav>
+
+      {/* Premium upgrade card */}
+      <div className="m-4 p-5 rounded-2xl bg-gradient-primary text-primary-foreground relative overflow-hidden">
+        <div className="absolute -right-6 -top-6 w-24 h-24 bg-coral/30 rounded-full blur-2xl" />
+        <div className="relative">
+          <div className="w-9 h-9 rounded-xl bg-white/20 grid place-items-center mb-2">
+            <Zap className="w-4 h-4" />
+          </div>
+          <div className="font-display font-bold text-sm mb-1">Upgrade to EVE+</div>
+          <div className="text-[11px] text-primary-foreground/80 mb-3 leading-snug">Unlock premium consultations & exclusive deals.</div>
+          <button className="w-full text-xs font-bold bg-card text-primary py-2 rounded-lg hover:bg-coral hover:text-coral-foreground transition-smooth">
+            Upgrade now
+          </button>
+        </div>
+      </div>
+    </aside>
   );
 }
 
 function DashHeader() {
   return (
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border/60">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center gap-6">
-        <Logo />
+      <div className="px-6 lg:px-10 h-20 flex items-center gap-4">
+        <div className="lg:hidden"><Logo /></div>
+
         <button className="hidden md:flex items-center gap-2 px-4 py-2.5 rounded-full bg-muted hover:bg-primary-soft transition-smooth text-sm font-medium">
           <MapPin className="w-4 h-4 text-coral" />
           <span>Jeddah, KSA</span>
           <ChevronDown className="w-4 h-4 text-muted-foreground" />
         </button>
 
-        <div className="flex-1 max-w-xl relative">
+        <div className="flex-1 max-w-2xl relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
-            placeholder="Search products, doctors, services..."
-            className="w-full pl-11 pr-4 py-3 rounded-full bg-muted border border-transparent focus:bg-card focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth text-sm"
+            placeholder="Search products, doctors, services…"
+            className="w-full pl-11 pr-4 py-3 rounded-full bg-muted border border-transparent focus:bg-card focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15 transition-smooth text-sm"
           />
+          <kbd className="hidden md:inline-flex absolute right-3 top-1/2 -translate-y-1/2 px-2 py-0.5 rounded text-[10px] font-mono bg-card border border-border text-muted-foreground">⌘K</kbd>
         </div>
-
-        <nav className="hidden lg:flex items-center gap-1">
-          {[Home, BookOpen].map((Icon, i) => (
-            <button key={i} className="w-10 h-10 grid place-items-center rounded-full hover:bg-muted transition-smooth">
-              <Icon className="w-5 h-5 text-muted-foreground" />
-            </button>
-          ))}
-        </nav>
 
         <button className="relative w-10 h-10 grid place-items-center rounded-full bg-muted hover:bg-primary-soft transition-smooth">
           <ShoppingCart className="w-5 h-5" />
@@ -90,15 +154,55 @@ function DashHeader() {
         </button>
         <button className="relative w-10 h-10 grid place-items-center rounded-full bg-muted hover:bg-primary-soft transition-smooth">
           <Bell className="w-5 h-5" />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-coral rounded-full" />
+          <span className="absolute top-2 right-2 w-2 h-2 bg-coral rounded-full animate-pulse" />
         </button>
 
         <button className="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full bg-muted hover:bg-primary-soft transition-smooth">
           <div className="w-8 h-8 rounded-full bg-gradient-primary grid place-items-center text-primary-foreground font-bold text-sm">SK</div>
+          <div className="hidden md:block text-left">
+            <div className="text-xs font-semibold leading-tight">Sarah Khalid</div>
+            <div className="text-[10px] text-muted-foreground">Premium</div>
+          </div>
           <ChevronDown className="w-4 h-4 text-muted-foreground" />
         </button>
       </div>
     </header>
+  );
+}
+
+function WelcomeStrip() {
+  const stats = [
+    { icon: Activity, label: "Health Score", value: "98%", trend: "+4%", tone: "from-primary-soft to-card" },
+    { icon: Calendar, label: "Next Appointment", value: "Tomorrow", trend: "10:30 AM", tone: "from-coral-soft to-card" },
+    { icon: TrendingUp, label: "Wellness Streak", value: "12 days", trend: "Keep going!", tone: "from-mint to-card" },
+    { icon: Award, label: "EVE Points", value: "2,340", trend: "Gold tier", tone: "from-beige to-card" },
+  ];
+  return (
+    <section className="animate-fade-up">
+      <div className="flex items-end justify-between mb-5">
+        <div>
+          <div className="text-sm text-muted-foreground">Welcome back,</div>
+          <h1 className="font-display font-extrabold text-3xl lg:text-4xl tracking-tight">
+            Sarah <span className="text-gradient-primary">👋</span>
+          </h1>
+        </div>
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-soft text-primary text-xs font-semibold">
+          <Users className="w-3 h-3" /> 12,438 patients online now
+        </div>
+      </div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {stats.map((s, i) => (
+          <div key={s.label} className={`relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br ${s.tone} border border-border/40 hover-lift animate-fade-up`} style={{ animationDelay: `${i * 80}ms` }}>
+            <div className="w-10 h-10 rounded-xl bg-card shadow-soft grid place-items-center mb-3">
+              <s.icon className="w-5 h-5 text-primary" />
+            </div>
+            <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">{s.label}</div>
+            <div className="font-display font-extrabold text-2xl mt-1">{s.value}</div>
+            <div className="text-xs text-primary font-semibold mt-1">{s.trend}</div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -114,7 +218,7 @@ function HeroBanner() {
             <Sparkles className="w-3 h-3" /> Bariatric Special
           </div>
           <h2 className="font-display font-extrabold text-4xl lg:text-5xl leading-tight">
-            Your Health is<br />Important
+            Your health is<br />important
           </h2>
           <p className="text-primary-foreground/80 text-lg max-w-md">
             Finding something for Bariatric? Discover curated nutrition, supplements and care.
