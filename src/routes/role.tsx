@@ -14,7 +14,7 @@ function RolePage() {
 
   const cont = () => {
     if (selected === "patient") navigate({ to: "/access" });
-    else if (selected === "professional") navigate({ to: "/login", search: { role: "professional" } as never });
+    else if (selected === "professional") navigate({ to: "/login" });
   };
 
   return (
