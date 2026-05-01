@@ -19,6 +19,7 @@ import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConsultationsRouteImport } from './routes/consultations'
 import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AccessRouteImport } from './routes/access'
 import { Route as IndexRouteImport } from './routes/index'
@@ -73,6 +74,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConsultationsRoute = ConsultationsRouteImport.update({
+  id: '/consultations',
+  path: '/consultations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArticlesRoute = ArticlesRouteImport.update({
   id: '/articles',
   path: '/articles',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/articles': typeof ArticlesRoute
+  '/consultations': typeof ConsultationsRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/articles': typeof ArticlesRoute
+  '/consultations': typeof ConsultationsRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/articles': typeof ArticlesRoute
+  '/consultations': typeof ConsultationsRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/articles'
+    | '/consultations'
     | '/contact'
     | '/dashboard'
     | '/login'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/articles'
+    | '/consultations'
     | '/contact'
     | '/dashboard'
     | '/login'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/articles'
+    | '/consultations'
     | '/contact'
     | '/dashboard'
     | '/login'
@@ -187,6 +199,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccessRoute: typeof AccessRoute
   ArticlesRoute: typeof ArticlesRoute
+  ConsultationsRoute: typeof ConsultationsRoute
   ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
@@ -271,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/consultations': {
+      id: '/consultations'
+      path: '/consultations'
+      fullPath: '/consultations'
+      preLoaderRoute: typeof ConsultationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/articles': {
       id: '/articles'
       path: '/articles'
@@ -299,6 +319,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessRoute: AccessRoute,
   ArticlesRoute: ArticlesRoute,
+  ConsultationsRoute: ConsultationsRoute,
   ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
