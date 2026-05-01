@@ -272,10 +272,10 @@ function DoctorCard({ d, delay }: { d: typeof doctors[number]; delay: number }) 
             {d.fee} <span className="text-xs font-semibold text-muted-foreground">SAR</span>
           </div>
         </div>
-        <button className="inline-flex items-center gap-2 bg-foreground text-background hover:bg-gradient-primary hover:text-primary-foreground font-semibold px-4 py-2.5 rounded-full text-sm shadow-soft hover:shadow-glow transition-smooth">
+        <Link to="/consultation-detail" className="inline-flex items-center gap-2 bg-foreground text-background hover:bg-gradient-primary hover:text-primary-foreground font-semibold px-4 py-2.5 rounded-full text-sm shadow-soft hover:shadow-glow transition-smooth">
           {d.status === "Completed" ? <Video className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
           View Now
-        </button>
+        </Link>
       </div>
     </article>
   );
