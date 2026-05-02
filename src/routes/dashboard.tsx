@@ -19,6 +19,7 @@ import article1 from "@/assets/article-1.jpg";
 import article2 from "@/assets/article-2.jpg";
 import article3 from "@/assets/article-3.jpg";
 import { useState } from "react";
+import { DoctorCategoryModal } from "@/components/DoctorCategoryModal";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({ meta: [{ title: "Patient Dashboard — EVE" }] }),
@@ -283,33 +284,44 @@ function ServicesGrid() {
 }
 
 function ConsultationSection() {
+  const [open, setOpen] = useState(false);
   const items = [
-    { img: consultDoctor, title: "Doctor's Consultation", desc: "Connect with verified specialists in minutes", icon: Stethoscope },
-    { img: consultPharm, title: "Pharmacist Advising", desc: "Get expert guidance on your medications", icon: Pill },
+    { img: consultDoctor, title: "Doctor's Consultation", desc: "Connect with verified specialists in minutes", icon: Stethoscope, kind: "doctor" as const },
+    { img: consultPharm, title: "Pharmacist Advising", desc: "Get expert guidance on your medications", icon: Pill, kind: "pharm" as const },
   ];
   return (
     <section>
       <SectionTitle title="Talk to an Expert" subtitle="Premium care, just one click away" />
       <div className="grid md:grid-cols-2 gap-5">
-        {items.map((c, i) => (
-          <div key={c.title} className="relative overflow-hidden rounded-3xl shadow-card hover-lift group animate-fade-up h-72" style={{ animationDelay: `${i*100}ms` }}>
-            <img src={c.img} alt={c.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-smooth duration-700" loading="lazy" width={800} height={600} />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent" />
-            <div className="absolute inset-0 p-7 flex flex-col justify-end text-primary-foreground">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur grid place-items-center">
-                  <c.icon className="w-5 h-5" />
+        {items.map((c, i) => {
+          const inner = (
+            <>
+              <img src={c.img} alt={c.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-smooth duration-700" loading="lazy" width={800} height={600} />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent" />
+              <div className="absolute inset-0 p-7 flex flex-col justify-end text-primary-foreground">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur grid place-items-center">
+                    <c.icon className="w-5 h-5" />
+                  </div>
                 </div>
+                <h3 className="font-display font-bold text-2xl mb-1">{c.title}</h3>
+                <p className="text-primary-foreground/80 text-sm mb-4 max-w-xs">{c.desc}</p>
+                <span className="self-start inline-flex items-center gap-2 bg-card text-primary font-semibold px-5 py-2.5 rounded-full hover:bg-coral hover:text-coral-foreground transition-smooth text-sm">
+                  Consult Now <ArrowRight className="w-4 h-4" />
+                </span>
               </div>
-              <h3 className="font-display font-bold text-2xl mb-1">{c.title}</h3>
-              <p className="text-primary-foreground/80 text-sm mb-4 max-w-xs">{c.desc}</p>
-              <button className="self-start inline-flex items-center gap-2 bg-card text-primary font-semibold px-5 py-2.5 rounded-full hover:bg-coral hover:text-coral-foreground transition-smooth text-sm">
-                Consult Now <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        ))}
+            </>
+          );
+          const cls = "relative overflow-hidden rounded-3xl shadow-card hover-lift group animate-fade-up h-72 text-left w-full";
+          const style = { animationDelay: `${i*100}ms` };
+          return c.kind === "doctor" ? (
+            <button key={c.title} onClick={() => setOpen(true)} className={cls} style={style}>{inner}</button>
+          ) : (
+            <Link key={c.title} to="/pharmacists" className={cls} style={style}>{inner}</Link>
+          );
+        })}
       </div>
+      <DoctorCategoryModal open={open} onClose={() => setOpen(false)} />
     </section>
   );
 }
