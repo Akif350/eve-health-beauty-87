@@ -155,9 +155,12 @@ function PharmacistCard({ p, delay }: { p: Pharmacist; delay: number }) {
         </ul>
 
         <div className="mt-5 flex items-center gap-2">
-          <button className="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-primary text-primary-foreground font-semibold py-3 rounded-xl hover:opacity-95 transition-smooth shadow-soft text-sm">
+          <Link
+            to="/pharmacist-order"
+            className="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-primary text-primary-foreground font-semibold py-3 rounded-xl hover:opacity-95 transition-smooth shadow-soft text-sm"
+          >
             Order Now <ArrowRight className="w-4 h-4" />
-          </button>
+          </Link>
           <button className="w-11 h-11 grid place-items-center rounded-xl bg-primary-soft text-primary hover:bg-primary hover:text-primary-foreground transition-smooth">
             <Phone className="w-4 h-4" />
           </button>
