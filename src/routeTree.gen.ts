@@ -13,6 +13,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as RoleRouteImport } from './routes/role'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProfessionalsRouteImport } from './routes/professionals'
+import { Route as PharmacistsRouteImport } from './routes/pharmacists'
 import { Route as OtpRouteImport } from './routes/otp'
 import { Route as MobileRouteImport } from './routes/mobile'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
@@ -43,6 +44,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const ProfessionalsRoute = ProfessionalsRouteImport.update({
   id: '/professionals',
   path: '/professionals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PharmacistsRoute = PharmacistsRouteImport.update({
+  id: '/pharmacists',
+  path: '/pharmacists',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OtpRoute = OtpRouteImport.update({
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/marketplace': typeof MarketplaceRoute
   '/mobile': typeof MobileRoute
   '/otp': typeof OtpRoute
+  '/pharmacists': typeof PharmacistsRoute
   '/professionals': typeof ProfessionalsRoute
   '/profile': typeof ProfileRoute
   '/role': typeof RoleRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/marketplace': typeof MarketplaceRoute
   '/mobile': typeof MobileRoute
   '/otp': typeof OtpRoute
+  '/pharmacists': typeof PharmacistsRoute
   '/professionals': typeof ProfessionalsRoute
   '/profile': typeof ProfileRoute
   '/role': typeof RoleRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/marketplace': typeof MarketplaceRoute
   '/mobile': typeof MobileRoute
   '/otp': typeof OtpRoute
+  '/pharmacists': typeof PharmacistsRoute
   '/professionals': typeof ProfessionalsRoute
   '/profile': typeof ProfileRoute
   '/role': typeof RoleRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/mobile'
     | '/otp'
+    | '/pharmacists'
     | '/professionals'
     | '/profile'
     | '/role'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/mobile'
     | '/otp'
+    | '/pharmacists'
     | '/professionals'
     | '/profile'
     | '/role'
@@ -201,6 +212,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/mobile'
     | '/otp'
+    | '/pharmacists'
     | '/professionals'
     | '/profile'
     | '/role'
@@ -219,6 +231,7 @@ export interface RootRouteChildren {
   MarketplaceRoute: typeof MarketplaceRoute
   MobileRoute: typeof MobileRoute
   OtpRoute: typeof OtpRoute
+  PharmacistsRoute: typeof PharmacistsRoute
   ProfessionalsRoute: typeof ProfessionalsRoute
   ProfileRoute: typeof ProfileRoute
   RoleRoute: typeof RoleRoute
@@ -253,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/professionals'
       fullPath: '/professionals'
       preLoaderRoute: typeof ProfessionalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pharmacists': {
+      id: '/pharmacists'
+      path: '/pharmacists'
+      fullPath: '/pharmacists'
+      preLoaderRoute: typeof PharmacistsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/otp': {
@@ -347,6 +367,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketplaceRoute: MarketplaceRoute,
   MobileRoute: MobileRoute,
   OtpRoute: OtpRoute,
+  PharmacistsRoute: PharmacistsRoute,
   ProfessionalsRoute: ProfessionalsRoute,
   ProfileRoute: ProfileRoute,
   RoleRoute: RoleRoute,
