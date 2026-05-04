@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Logo } from "@/components/Logo";
+import { AdviseNowModal } from "@/components/AdviseNowModal";
 import {
   Search, Bell, ShoppingCart, MapPin, ChevronDown, Star, Phone,
   Pill, Home, Stethoscope, ShoppingBag, Calendar as CalIcon, MessageSquare,
@@ -66,6 +67,7 @@ function PharmacistOrderPage() {
   }, []);
 
   const [dayIdx, setDayIdx] = useState(0);
+  const [adviseOpen, setAdviseOpen] = useState(false);
   const [period, setPeriod] = useState<Period>("Morning");
   const [time, setTime] = useState<string | null>(null);
   const [files, setFiles] = useState<{ name: string; size: string }[]>([]);
@@ -419,9 +421,10 @@ function PharmacistOrderPage() {
 
                       <button
                         disabled={!pay || !time}
+                        onClick={() => setAdviseOpen(true)}
                         className="mt-5 w-full inline-flex items-center justify-center gap-2 bg-gradient-primary text-primary-foreground font-semibold py-3.5 rounded-2xl hover:opacity-95 transition-smooth shadow-soft text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Confirm & Pay <ArrowRight className="w-4 h-4" />
+                        Advise Now <ArrowRight className="w-4 h-4" />
                       </button>
                       {(!pay || !time) && (
                         <p className="text-[11px] text-center text-muted-foreground mt-2">
@@ -443,6 +446,8 @@ function PharmacistOrderPage() {
           </div>
         </main>
       </div>
+
+      <AdviseNowModal open={adviseOpen} onClose={() => setAdviseOpen(false)} />
     </div>
   );
 }
