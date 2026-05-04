@@ -173,6 +173,8 @@ function PharmacistOrderPage() {
             </div>
           </section>
 
+          <div className="grid xl:grid-cols-3 gap-6">
+            <div className="xl:col-span-2 space-y-6">
               {/* Slot Selection */}
               <section className="rounded-3xl bg-card border border-border/60 shadow-card p-6 animate-fade-up">
                 <div className="flex items-center justify-between mb-4">
