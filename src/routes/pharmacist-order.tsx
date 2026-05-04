@@ -446,6 +446,8 @@ function PharmacistOrderPage() {
           </div>
         </main>
       </div>
+
+      <AdviseNowModal open={adviseOpen} onClose={() => setAdviseOpen(false)} />
     </div>
   );
 }
