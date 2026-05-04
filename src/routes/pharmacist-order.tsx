@@ -467,7 +467,7 @@ function Stepper({ steps }: { steps: { label: string; done: boolean }[] }) {
   );
 }
 
-
+function MetaTile({
   icon: Icon, label, value, highlight,
 }: { icon: React.ElementType; label: string; value: string; highlight?: boolean }) {
   return (
