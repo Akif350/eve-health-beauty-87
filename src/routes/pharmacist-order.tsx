@@ -95,88 +95,83 @@ function PharmacistOrderPage() {
       <div className="flex-1 min-w-0 flex flex-col">
         <DashHeader />
         <main className="flex-1 px-6 lg:px-10 py-8 space-y-6">
-          <Link
-            to="/pharmacists"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-smooth font-medium"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to Pharmacists
-          </Link>
+          {/* Top bar: back + steps */}
+          <div className="flex items-center justify-between gap-4 flex-wrap animate-fade-up">
+            <Link
+              to="/pharmacists"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-smooth font-medium"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to Pharmacists
+            </Link>
+            <Stepper
+              steps={[
+                { label: "Slot", done: !!time },
+                { label: "Mode", done: !!mode },
+                { label: "Pay", done: !!pay },
+              ]}
+            />
+          </div>
 
-          <div className="grid xl:grid-cols-3 gap-6">
-            {/* LEFT — main flow */}
-            <div className="xl:col-span-2 space-y-6">
-              {/* Pharmacist Profile */}
-              <section className="relative overflow-hidden rounded-3xl bg-card border border-border/60 shadow-card animate-fade-up">
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-coral/15 rounded-full blur-3xl pointer-events-none" />
+          {/* HERO — pharmacist profile */}
+          <section className="relative overflow-hidden rounded-[2rem] bg-gradient-primary text-primary-foreground shadow-elegant animate-fade-up">
+            <div className="absolute -top-32 -right-24 w-80 h-80 bg-white/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-32 -left-20 w-72 h-72 bg-coral/30 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:18px_18px]" />
 
-                <div className="relative p-6 lg:p-7 flex flex-col md:flex-row gap-5">
-                  <div className="w-24 h-24 rounded-3xl bg-gradient-primary grid place-items-center text-primary-foreground font-display font-extrabold text-3xl shadow-elegant shrink-0">
-                    {pharmacist.initials}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-3 flex-wrap">
-                      <div>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-soft text-primary text-[11px] font-semibold mb-2">
-                          <ShieldCheck className="w-3 h-3" /> Licensed Pharmacist
-                        </div>
-                        <h1 className="font-display font-extrabold text-2xl lg:text-[1.7rem] tracking-tight leading-tight">
-                          {pharmacist.name}
-                        </h1>
-                        <p className="text-sm text-primary font-semibold mt-0.5">
-                          {pharmacist.specialty}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-beige/60">
-                        <Star className="w-4 h-4 fill-[oklch(0.8_0.18_85)] text-[oklch(0.8_0.18_85)]" />
-                        <span className="text-sm font-bold">{pharmacist.rating}</span>
-                        <span className="text-[11px] text-muted-foreground">
-                          ({pharmacist.reviews})
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      <MetaTile icon={Award} label="Experience" value={pharmacist.experience} />
-                      <MetaTile icon={MapPin} label="Based in" value="Riyadh" />
-                      <MetaTile icon={Languages} label="Languages" value={`${pharmacist.languages.length}`} />
-                      <MetaTile icon={Sparkles} label="Advising Fee" value={`SAR ${pharmacist.fee}`} highlight />
-                    </div>
-
-                    <div className="mt-4">
-                      <div className="text-[11px] uppercase tracking-wider font-bold text-muted-foreground mb-1.5">
-                        Expertise In
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        {pharmacist.expertise.map((x) => (
-                          <span
-                            key={x}
-                            className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-primary-soft text-primary"
-                          >
-                            {x}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-3">
-                      <div className="text-[11px] uppercase tracking-wider font-bold text-muted-foreground mb-1.5">
-                        Languages
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        {pharmacist.languages.map((l) => (
-                          <span
-                            key={l}
-                            className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-coral-soft text-coral"
-                          >
-                            {l}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+            <div className="relative p-6 lg:p-8 grid lg:grid-cols-[auto,1fr,auto] gap-6 items-center">
+              {/* Avatar */}
+              <div className="relative shrink-0 mx-auto lg:mx-0">
+                <div className="w-28 h-28 rounded-[1.75rem] bg-white/15 backdrop-blur-md grid place-items-center font-display font-extrabold text-4xl shadow-elegant ring-4 ring-white/20">
+                  {pharmacist.initials}
                 </div>
-              </section>
+                <span className="absolute -bottom-2 -right-2 px-2 py-1 rounded-full bg-card text-primary text-[10px] font-bold flex items-center gap-1 shadow-soft">
+                  <ShieldCheck className="w-3 h-3" /> Verified
+                </span>
+              </div>
+
+              {/* Info */}
+              <div className="min-w-0 text-center lg:text-left">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 text-[11px] font-bold tracking-wider uppercase mb-2">
+                  <Sparkles className="w-3 h-3" /> Licensed Clinical Pharmacist
+                </div>
+                <h1 className="font-display font-extrabold text-2xl lg:text-[1.9rem] leading-tight">
+                  {pharmacist.name}
+                </h1>
+                <p className="text-sm text-primary-foreground/85 mt-1">
+                  {pharmacist.specialty} · {pharmacist.location}
+                </p>
+
+                <div className="mt-4 flex flex-wrap gap-1.5 justify-center lg:justify-start">
+                  {pharmacist.expertise.map((x) => (
+                    <span key={x} className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-sm">
+                      {x}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-3 flex items-center gap-4 justify-center lg:justify-start text-[12px] text-primary-foreground/90">
+                  <span className="inline-flex items-center gap-1.5"><Languages className="w-3.5 h-3.5" /> {pharmacist.languages.join(" · ")}</span>
+                  <span className="inline-flex items-center gap-1.5"><Award className="w-3.5 h-3.5" /> {pharmacist.experience}</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Star className="w-3.5 h-3.5 fill-[oklch(0.9_0.16_85)] text-[oklch(0.9_0.16_85)]" />
+                    {pharmacist.rating} ({pharmacist.reviews})
+                  </span>
+                </div>
+              </div>
+
+              {/* Fee */}
+              <div className="bg-card/95 text-foreground rounded-2xl p-5 text-center min-w-[150px] shadow-elegant">
+                <div className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground">Advising Fee</div>
+                <div className="font-display font-extrabold text-3xl text-gradient-primary mt-1">
+                  {pharmacist.fee}
+                </div>
+                <div className="text-xs font-bold text-muted-foreground -mt-0.5">SAR / session</div>
+                <div className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-primary px-2 py-0.5 rounded-full bg-primary-soft">
+                  <Phone className="w-2.5 h-2.5" /> Instant connect
+                </div>
+              </div>
+            </div>
+          </section>
 
               {/* Slot Selection */}
               <section className="rounded-3xl bg-card border border-border/60 shadow-card p-6 animate-fade-up">
