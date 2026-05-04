@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Logo } from "@/components/Logo";
+import { AdviseNowModal } from "@/components/AdviseNowModal";
 import {
   Search, Bell, ShoppingCart, MapPin, ChevronDown, Star, Phone,
   Pill, Home, Stethoscope, ShoppingBag, Calendar as CalIcon, MessageSquare,
