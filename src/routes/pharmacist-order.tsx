@@ -447,7 +447,27 @@ function PharmacistOrderPage() {
   );
 }
 
-function MetaTile({
+function Stepper({ steps }: { steps: { label: string; done: boolean }[] }) {
+  return (
+    <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-card border border-border/60 shadow-soft">
+      {steps.map((s, i) => (
+        <div key={s.label} className="flex items-center gap-2">
+          <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold ${
+            s.done ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+          }`}>
+            <span className={`w-4 h-4 grid place-items-center rounded-full text-[9px] ${
+              s.done ? "bg-white/25" : "bg-card border border-border"
+            }`}>{i + 1}</span>
+            {s.label}
+          </div>
+          {i < steps.length - 1 && <div className="w-4 h-px bg-border" />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
   icon: Icon, label, value, highlight,
 }: { icon: React.ElementType; label: string; value: string; highlight?: boolean }) {
   return (
