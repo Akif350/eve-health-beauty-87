@@ -39,7 +39,13 @@ const pharmacist = {
   location: "Al Olaya, Riyadh",
 };
 
-const slotTimes = ["09:00 AM", "11:30 AM", "02:00 PM", "04:30 PM", "07:00 PM"];
+const slotsByPeriod: Record<"Morning" | "Afternoon" | "Evening", string[]> = {
+  Morning: ["08:00 AM", "09:30 AM", "10:30 AM", "11:30 AM"],
+  Afternoon: ["12:30 PM", "01:30 PM", "02:30 PM", "04:00 PM"],
+  Evening: ["05:30 PM", "06:30 PM", "07:30 PM", "08:30 PM"],
+};
+const periods = ["Morning", "Afternoon", "Evening"] as const;
+type Period = typeof periods[number];
 
 type Mode = "video" | "audio" | "chat" | null;
 
