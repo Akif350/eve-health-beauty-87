@@ -213,19 +213,43 @@ function PharmacistOrderPage() {
                 </div>
 
                 <div className="mt-5">
-                  <div className="text-[11px] uppercase tracking-wider font-bold text-muted-foreground mb-2">
-                    Available Times
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-[11px] uppercase tracking-wider font-bold text-muted-foreground">
+                      Time of Day
+                    </div>
+                    <div className="text-[11px] text-muted-foreground">
+                      {slotsByPeriod[period].length} slots
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {slotTimes.map((t) => {
+                  <div className="grid grid-cols-3 gap-2 p-1 rounded-2xl bg-muted/60 border border-border/50">
+                    {periods.map((p) => {
+                      const active = period === p;
+                      return (
+                        <button
+                          key={p}
+                          onClick={() => { setPeriod(p); setTime(null); }}
+                          className={`py-2 rounded-xl text-xs font-bold transition-smooth ${
+                            active
+                              ? "bg-card text-primary shadow-soft"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {slotsByPeriod[period].map((t) => {
                       const active = t === time;
                       return (
                         <button
                           key={t}
                           onClick={() => setTime(t)}
-                          className={`px-4 py-2 rounded-xl text-sm font-semibold border transition-smooth ${
+                          className={`px-3 py-2.5 rounded-xl text-sm font-semibold border transition-smooth ${
                             active
-                              ? "bg-primary text-primary-foreground border-primary shadow-soft"
+                              ? "bg-gradient-primary text-primary-foreground border-transparent shadow-soft"
                               : "bg-card border-border/60 hover:border-primary/40 hover:bg-primary-soft hover:text-primary"
                           }`}
                         >
