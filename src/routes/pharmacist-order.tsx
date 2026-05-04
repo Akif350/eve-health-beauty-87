@@ -66,6 +66,7 @@ function PharmacistOrderPage() {
   }, []);
 
   const [dayIdx, setDayIdx] = useState(0);
+  const [period, setPeriod] = useState<Period>("Morning");
   const [time, setTime] = useState<string | null>(null);
   const [files, setFiles] = useState<{ name: string; size: string }[]>([]);
   const [notes, setNotes] = useState("");
